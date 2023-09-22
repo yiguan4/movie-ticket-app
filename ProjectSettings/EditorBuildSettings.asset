@@ -8,4 +8,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/HomePage.unity
+    guid: ffd554aa55f114145a37335b14c87dbb
+  - enabled: 1
+    path: Assets/Scenes/MoviesPage.unity
+    guid: a2dfc366e81cd451fbfe09122d312c32
+  - enabled: 1
+    path: Assets/Scenes/ProfilePage.unity
+    guid: 10ad11e8603164da9bd7129ee47141ab
+  - enabled: 1
+    path: Assets/Scenes/StartUpPage.unity
+    guid: 6ef37b2f4d78d4f5899dde206f7150fb
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
