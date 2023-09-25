@@ -20,7 +20,7 @@ public class Login : MonoBehaviour
         string username = usernameInputField.text;
         string password = passwordInputField.text;
 
-        UnityWebRequest request = UnityWebRequest.Get($"{authenticationEndpoint}?cUserName={username}&cPassword={password}");
+        UnityWebRequest request = UnityWebRequest.Get($"{authenticationEndpoint}?cUsername={username}&cPassword={password}");
         var handler = request.SendWebRequest();
 
         float startTime = 0.0f;
