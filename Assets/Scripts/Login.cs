@@ -28,6 +28,19 @@ public class Login : MonoBehaviour
         string username = usernameInputField.text;
         string password = passwordInputField.text;
 
+        if (username.Length < 3 || username.Length > 24) {
+            alertText.text = "Invalid username";
+            loginButton.interactable = true;
+            yield break;
+        }
+
+        if (password.Length < 3 || password.Length > 24)
+        {
+            alertText.text = "Invalid password";
+            loginButton.interactable = true;
+            yield break;
+        }
+
         UnityWebRequest request = UnityWebRequest.Get($"{authenticationEndpoint}?cUsername={username}&cPassword={password}");
         var handler = request.SendWebRequest();
 
@@ -44,9 +57,10 @@ public class Login : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            if (true) {
-                alertText.text = "Welcome";
+            if (request.downloadHandler.text != "Invalid credentials") {
                 loginButton.interactable = false;
+                UserAccount returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                alertText.text = $"{returnedAccount._id} Welcome" + returnedAccount.username;
             }
             else {
                 alertText.text = "Invalid credentials";
