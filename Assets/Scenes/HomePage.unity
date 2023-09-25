@@ -900,6 +900,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4815f8c1710ab4790b8ee9dbbeb37e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authenticationEndpoint: http://localhost:1234/account
+  alertText: {fileID: 922245603}
+  loginButton: {fileID: 304647774}
   usernameInputField: {fileID: 1851674873}
   passwordInputField: {fileID: 1887396074}
 --- !u!1 &577675773

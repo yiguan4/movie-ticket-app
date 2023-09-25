@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Login : MonoBehaviour
 {
     [SerializeField] private string authenticationEndpoint = "http://127.0.0.1:1234/account";
 
+
+    [SerializeField] private TextMeshProUGUI alertText;
+    [SerializeField] private Button loginButton;
     [SerializeField] private TMP_InputField usernameInputField;
     [SerializeField] private TMP_InputField passwordInputField;
 
     public void OnLoginClick() {
+        alertText.text = "Signing in...";
+        loginButton.interactable = false;
         StartCoroutine(TryLogin());
 
     }
 
     private IEnumerator TryLogin() {
+
+
         string username = usernameInputField.text;
         string password = passwordInputField.text;
 
@@ -36,11 +44,21 @@ public class Login : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            Debug.Log(request.downloadHandler.text);
+            if (true) {
+                alertText.text = "Welcome";
+                loginButton.interactable = false;
+            }
+            else {
+                alertText.text = "Invalid credentials";
+                loginButton.interactable = true;
+            }
+
+
         }
         else
         {
-            Debug.Log("Unable to connect to the server");
+            alertText.text = "Error connecting to the server...";
+            loginButton.interactable = true;
         }
 
 
