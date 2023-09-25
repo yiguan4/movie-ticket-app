@@ -15,8 +15,10 @@ public class Login : MonoBehaviour
     [SerializeField] private TextMeshProUGUI alertRegisterText;
     // [SerializeField] private Button loginButton;
     // [SerializeField] private Button createButton;
-    [SerializeField] private TMP_InputField usernameInputField;
-    [SerializeField] private TMP_InputField passwordInputField;
+    [SerializeField] private TMP_InputField usernameLoginInputField;
+    [SerializeField] private TMP_InputField passwordLoginInputField;
+    [SerializeField] private TMP_InputField usernameRegisterInputField;
+    [SerializeField] private TMP_InputField passwordRegisterInputField;
 
     public void OnLoginClick()
     {
@@ -37,8 +39,8 @@ public class Login : MonoBehaviour
     {
 
 
-        string username = usernameInputField.text;
-        string password = passwordInputField.text;
+        string username = usernameLoginInputField.text;
+        string password = passwordLoginInputField.text;
 
         if (username.Length < 3 || username.Length > 24)
         {
@@ -102,12 +104,12 @@ public class Login : MonoBehaviour
 
     private IEnumerator TryCreate()
     {
-        string username = usernameInputField.text;
-        string password = passwordInputField.text;
+        string username = usernameRegisterInputField.text;
+        string password = passwordRegisterInputField.text;
 
         if (username.Length < 3 || username.Length > 24)
         {
-            alertRegisterText.text = "Invalid username";
+            alertRegisterText.text = "Invalid username11111";
             //      loginButton.interactable = true;
             yield break;
         }

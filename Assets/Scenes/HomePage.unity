@@ -1220,11 +1220,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginEndpoint: http://127.0.0.1:1234/account/login
-  createEndpoint: http://127.0.0.1:1234/account/login/create
+  createEndpoint: http://127.0.0.1:1234/account/create
   alertLoginText: {fileID: 922245603}
   alertRegisterText: {fileID: 476017049}
-  usernameInputField: {fileID: 1851674873}
-  passwordInputField: {fileID: 1887396074}
+  usernameLoginInputField: {fileID: 1851674873}
+  passwordLoginInputField: {fileID: 1887396074}
+  usernameRegisterInputField: {fileID: 622137481}
+  passwordRegisterInputField: {fileID: 1440175288}
 --- !u!1 &577675773
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,8 +3011,8 @@ RectTransform:
   - {fileID: 109188111}
   - {fileID: 751355214}
   - {fileID: 1354309193}
-  - {fileID: 1220535193}
   - {fileID: 58877242}
+  - {fileID: 1220535193}
   - {fileID: 1927749747}
   m_Father: {fileID: 519420032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4104,7 +4106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1927749747
 RectTransform:
   m_ObjectHideFlags: 0
