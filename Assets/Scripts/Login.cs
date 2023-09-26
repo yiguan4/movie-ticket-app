@@ -30,15 +30,16 @@ public class Login : MonoBehaviour
 
     private void Awake()
     {
-        if (loginScene == null)
+        if (loginScene != null)
         {
-            loginScene = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(this.gameObject);
+            return;
+
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        loginScene = this;
+        GameObject.DontDestroyOnLoad(this.gameObject);
+        
     }
 
     public void OnLoginClick()

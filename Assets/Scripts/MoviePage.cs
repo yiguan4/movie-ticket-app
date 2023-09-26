@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class MoviePage : MonoBehaviour
 {
-    //public Login script;
+    public Login script;
     [SerializeField] private TextMeshProUGUI alertLoginText;
-
-
+    
     public void Awake()
     {
+
         alertLoginText.text = Login.loginScene.returnedAccount.username;
     }
 
