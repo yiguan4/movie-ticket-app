@@ -26,22 +26,6 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField confirmPasswordRegisterInputField;
 
     public static UserAccount returnedAccount = new UserAccount();
-    //public static Login loginScene;
-
-    /*
-    private void Awake()
-    {
-        if (loginScene != null)
-        {
-            Destroy(this.gameObject);
-            return;
-
-        }
-
-        loginScene = this;
-        GameObject.DontDestroyOnLoad(this.gameObject);
-        
-    }*/
 
     public void OnLoginClick()
     {
@@ -98,7 +82,7 @@ public class Login : MonoBehaviour
             if (request.downloadHandler.text != "Invalid credentials")
             {
                 returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
-                alertLoginText.text = $"{returnedAccount._id} Welcome" + returnedAccount.username;
+                alertLoginText.text = $"Welcome " + returnedAccount.username;
                 SceneManager.LoadScene("MoviesPage");
             }
             else
