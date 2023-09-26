@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using System;
 using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
@@ -25,13 +26,25 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField confirmPasswordRegisterInputField;
 
     public UserAccount returnedAccount;
+    public static Login loginScene;
+
+    private void Awake()
+    {
+        if (loginScene == null)
+        {
+            loginScene = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public void OnLoginClick()
     {
         alertLoginText.text = "Signing in...";
         StartCoroutine(TryLogin());
-
-        
 
     }
 
@@ -82,8 +95,9 @@ public class Login : MonoBehaviour
         {
             if (request.downloadHandler.text != "Invalid credentials")
             {
-                returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertLoginText.text = $"{returnedAccount._id} Welcome" + returnedAccount.username;
+                //Console.Write(returnedAccount.username);
             }
             else
             {
@@ -190,5 +204,7 @@ public class Login : MonoBehaviour
 
         yield return null;
     }
+
+
 
 }

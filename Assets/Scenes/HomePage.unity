@@ -1577,6 +1577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   script: {fileID: 519420033}
+  alertLoginText: {fileID: 0}
 --- !u!1 &577675773
 GameObject:
   m_ObjectHideFlags: 0
