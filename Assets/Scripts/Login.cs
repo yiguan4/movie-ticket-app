@@ -12,7 +12,6 @@ public class Login : MonoBehaviour
     [SerializeField] private string loginEndpoint = "http://127.0.0.1:1234/account/login";
     [SerializeField] private string registerEndpoint = "http://127.0.0.1:1234/account/register";
 
-
     [SerializeField] private TextMeshProUGUI alertLoginText;
     [SerializeField] private TextMeshProUGUI alertRegisterText;
     [SerializeField] private TMP_InputField usernameLoginInputField;
@@ -25,11 +24,14 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField passwordRegisterInputField;
     [SerializeField] private TMP_InputField confirmPasswordRegisterInputField;
 
+    public UserAccount returnedAccount;
 
     public void OnLoginClick()
     {
         alertLoginText.text = "Signing in...";
         StartCoroutine(TryLogin());
+
+        
 
     }
 
@@ -41,22 +43,18 @@ public class Login : MonoBehaviour
 
     private IEnumerator TryLogin()
     {
-
-
         string username = usernameLoginInputField.text;
         string password = passwordLoginInputField.text;
 
         if (username.Length < 3 || username.Length > 24)
         {
             alertLoginText.text = "Invalid username";
-            //      loginButton.interactable = true;
             yield break;
         }
 
         if (password.Length < 3 || password.Length > 24)
         {
             alertLoginText.text = "Invalid password";
-            //     loginButton.interactable = true;
             yield break;
         }
 
@@ -84,27 +82,24 @@ public class Login : MonoBehaviour
         {
             if (request.downloadHandler.text != "Invalid credentials")
             {
-                //        loginButton.interactable = false;
-                UserAccount returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertLoginText.text = $"{returnedAccount._id} Welcome" + returnedAccount.username;
             }
             else
             {
                 alertLoginText.text = "Invalid credentials";
-                //    loginButton.interactable = true;
             }
-
 
         }
         else
         {
             alertLoginText.text = "Error connecting to the server...";
-            //   loginButton.interactable = true;
         }
 
 
         yield return null;
     }
+
 
     private IEnumerator TryRegister()
     {
@@ -113,7 +108,7 @@ public class Login : MonoBehaviour
         string email = emailRegisterInputField.text;
         string username = usernameRegisterInputField.text;
         string password = passwordRegisterInputField.text;
-        string confirmPassword = confirmPasswordRegisterInputField;
+        string confirmPassword = confirmPasswordRegisterInputField.text;
 
         if (Regex.IsMatch(firstname, @"^[a-zA-Z]+$") == false || firstname.Length < 3 || firstname.Length > 24) {
             alertRegisterText.text = "Invalid first name";
@@ -150,7 +145,6 @@ public class Login : MonoBehaviour
         }
 
 
-
         WWWForm form = new WWWForm();
         form.AddField("first", firstname);
         form.AddField("last", lastname); 
@@ -178,7 +172,7 @@ public class Login : MonoBehaviour
         {
             if (request.downloadHandler.text != "Invalid credentials" && request.downloadHandler.text != "Username is already taken")
             {
-                UserAccount returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertRegisterText.text = "Account has been created";
             }
             else
