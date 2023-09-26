@@ -25,9 +25,10 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField passwordRegisterInputField;
     [SerializeField] private TMP_InputField confirmPasswordRegisterInputField;
 
-    public UserAccount returnedAccount;
-    public static Login loginScene;
+    public static UserAccount returnedAccount = new UserAccount();
+    //public static Login loginScene;
 
+    /*
     private void Awake()
     {
         if (loginScene != null)
@@ -40,7 +41,7 @@ public class Login : MonoBehaviour
         loginScene = this;
         GameObject.DontDestroyOnLoad(this.gameObject);
         
-    }
+    }*/
 
     public void OnLoginClick()
     {
@@ -98,7 +99,7 @@ public class Login : MonoBehaviour
             {
                 returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertLoginText.text = $"{returnedAccount._id} Welcome" + returnedAccount.username;
-                //Console.Write(returnedAccount.username);
+                SceneManager.LoadScene("MoviesPage");
             }
             else
             {

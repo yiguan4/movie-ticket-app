@@ -13,7 +13,7 @@ public class MoviePage : MonoBehaviour
     public void Awake()
     {
 
-        alertLoginText.text = Login.loginScene.returnedAccount.username;
+        alertLoginText.text = Login.returnedAccount.username;
     }
 
 }
