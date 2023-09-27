@@ -27,79 +27,18 @@ public class Login : MonoBehaviour
 
     public static UserAccount returnedAccount = new UserAccount();
 
-    public void OnLoginClick()
-    {
-        alertLoginText.text = "Signing in...";
-        StartCoroutine(TryLogin());
-
-    }
-
     public void OnRegisterClick()
     {
         alertRegisterText.text = "Registering account...";
         StartCoroutine(TryRegister());
     }
 
-    private IEnumerator TryLogin()
+    public void OnLoginClick()
     {
-        string username = usernameLoginInputField.text;
-        string password = passwordLoginInputField.text;
+        alertLoginText.text = "Signing in...";
+        StartCoroutine(TryLogin());
 
-        if (username.Length < 3 || username.Length > 24)
-        {
-            alertLoginText.text = "Invalid username";
-            yield break;
-        }
-
-        if (password.Length < 3 || password.Length > 24)
-        {
-            alertLoginText.text = "Invalid password";
-            yield break;
-        }
-
-        WWWForm form = new WWWForm();
-        form.AddField("cUsername", username);
-        form.AddField("cPassword", password);
-
-        UnityWebRequest request = UnityWebRequest.Post(loginEndpoint, form);
-        var handler = request.SendWebRequest();
-
-        float startTime = 0.0f;
-        while (!handler.isDone)
-        {
-            startTime += Time.deltaTime;
-
-            if (startTime > 10.0f)
-            {
-                break;
-            }
-
-            yield return null;
-        }
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            if (request.downloadHandler.text != "Invalid credentials")
-            {
-                returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
-                alertLoginText.text = $"Welcome " + returnedAccount.username;
-                SceneManager.LoadScene("MoviesPage");
-            }
-            else
-            {
-                alertLoginText.text = "Invalid credentials";
-            }
-
-        }
-        else
-        {
-            alertLoginText.text = "Error connecting to the server...";
-        }
-
-
-        yield return null;
     }
-
 
     private IEnumerator TryRegister()
     {
@@ -170,7 +109,10 @@ public class Login : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            if (request.downloadHandler.text != "Invalid credentials" && request.downloadHandler.text != "Username is already taken")
+            if (request.downloadHandler.text == "Username is already taken") {
+                alertRegisterText.text = "Username is already taken";
+            }
+            else if (request.downloadHandler.text != "Invalid credentials" && request.downloadHandler.text != "Username is already taken")
             {
                 returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertRegisterText.text = "Account has been created";
@@ -190,6 +132,56 @@ public class Login : MonoBehaviour
 
         yield return null;
     }
+
+
+    private IEnumerator TryLogin()
+    {
+        string username = usernameLoginInputField.text;
+        string password = passwordLoginInputField.text;
+
+        WWWForm form = new WWWForm();
+        form.AddField("cUsername", username);
+        form.AddField("cPassword", password);
+
+        UnityWebRequest request = UnityWebRequest.Post(loginEndpoint, form);
+        var handler = request.SendWebRequest();
+
+        float startTime = 0.0f;
+        while (!handler.isDone)
+        {
+            startTime += Time.deltaTime;
+
+            if (startTime > 10.0f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            if (request.downloadHandler.text != "Invalid credentials")
+            {
+                returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                alertLoginText.text = $"Welcome " + returnedAccount.username;
+                SceneManager.LoadScene("MoviesPage");
+            }
+            else
+            {
+                alertLoginText.text = "Invalid credentials";
+            }
+
+        }
+        else
+        {
+            alertLoginText.text = "Error connecting to the server...";
+        }
+
+
+        yield return null;
+    }
+
 
 
 
