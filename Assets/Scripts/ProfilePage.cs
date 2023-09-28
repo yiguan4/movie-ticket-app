@@ -10,12 +10,39 @@ public class ProfilePage : MonoBehaviour
     [SerializeField] private TextMeshProUGUI alertEmailText;
     [SerializeField] private TextMeshProUGUI alertUsernameText;
 
+    [SerializeField] private TMP_InputField firstnameEditInputField;
+    [SerializeField] private TMP_InputField lastnameEditInputField;
+    [SerializeField] private TMP_InputField emailEditInputField;
+    [SerializeField] private TMP_InputField usernameEditInputField;
+    [SerializeField] private TMP_InputField passwordEditInputField;
+    [SerializeField] private TMP_InputField confirmPasswordEditInputField;
+
+
+
     public void Update()
     {
         alertFirstnameText.text = "First Name: " + Login.returnedAccount.firstname;
         alertLastnameText.text = "Last Name: " + Login.returnedAccount.lastname;
         alertEmailText.text = "Email: " + Login.returnedAccount.email;
         alertUsernameText.text = "Username: " + Login.returnedAccount.username;
+    }
+
+    public void OnEditClick()
+    {
+        StartCoroutine(TryEdit());
+    }
+
+    private IEnumerator TryEdit()
+    {
+        string firstname = firstnameEditInputField.text;
+        string lastname = lastnameEditInputField.text;
+        string email = emailEditInputField.text;
+        string username = usernameEditInputField.text;
+        string password = passwordEditInputField.text;
+        string confirmPassword = confirmPasswordEditInputField.text;
+
+
+        yield return null;
     }
 
 
