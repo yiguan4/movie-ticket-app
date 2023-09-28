@@ -25,7 +25,7 @@ public class Login : MonoBehaviour
     [SerializeField] private TMP_InputField passwordRegisterInputField;
     [SerializeField] private TMP_InputField confirmPasswordRegisterInputField;
 
-    public static UserAccount returnedAccount = new UserAccount();
+    public static UserAccount currentAccount = new UserAccount();
 
     public void OnRegisterClick()
     {
@@ -39,6 +39,7 @@ public class Login : MonoBehaviour
         StartCoroutine(TryLogin());
 
     }
+
 
     private IEnumerator TryRegister()
     {
@@ -114,7 +115,7 @@ public class Login : MonoBehaviour
             }
             else if (request.downloadHandler.text != "Invalid credentials" && request.downloadHandler.text != "Username is already taken")
             {
-                returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                UserAccount returnedAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
                 alertRegisterText.text = "Account has been created";
             }
             else
@@ -163,8 +164,8 @@ public class Login : MonoBehaviour
         {
             if (request.downloadHandler.text != "Invalid credentials")
             {
-                returnedAccount= JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
-                alertLoginText.text = $"Welcome " + returnedAccount.username;
+                currentAccount = JsonUtility.FromJson<UserAccount>(request.downloadHandler.text);
+                alertLoginText.text = $"Welcome " + currentAccount.username;
                 SceneManager.LoadScene("MoviesPage");
             }
             else

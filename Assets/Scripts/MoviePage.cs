@@ -20,22 +20,40 @@ public class MoviePage : MonoBehaviour
 
 
     public GameObject PurchaseSuccessPanel;
+    public GameObject GetTicketPanel;
 
     public void Awake()
     {
-        alertLoginText.text = "Hello, " + Login.returnedAccount.firstname;
+        alertLoginText.text = "Hello, " + Login.currentAccount.firstname;
     }
 
     public void OnSubmitClick()
     {
         alertLoadingText.text = "Loading payment...";
+
         StartCoroutine(TrySubmitPurchase());
+    }
+
+    public void Month(int var)
+    {
+        if (var == 0)
+        {
+            alertLoadingText.text = "Expiration Date is invalid";
+        }
+    }
+
+    public void Year(int var)
+    {
+        if (var == 0)
+        {
+            alertLoadingText.text = "Expiration Date is invalid";
+        }
     }
 
     private IEnumerator TrySubmitPurchase()
     {
         string cardnum = cardNumInputField.text;
-        string expDate = expDateInputField.text;
+        //string expDate = expDateInputField.text;
         string cvv = cvvInputField.text;
         string fullname = cardholderFullnameField.text;
         string billingAddress = billingAddressField.text;
@@ -46,11 +64,14 @@ public class MoviePage : MonoBehaviour
             yield break;
         }
 
+        /*
         if (Regex.IsMatch(expDate, @"^[0-9]*$") == false || expDate.Length <3 || expDate.Length > 8)
         {
             alertLoadingText.text = "Expiration Date";
             yield break;
-        }
+        }*/
+        
+        
 
         if (Regex.IsMatch(cvv, @"^[0-9]*$") == false || cvv.Length < 3 || cvv.Length > 4 )
         {
@@ -70,10 +91,13 @@ public class MoviePage : MonoBehaviour
             yield break;
         }
 
-
-        //PurchaseSuccessPanel.SetActive(true);
+        GetTicketPanel.SetActive(false);
+        PurchaseSuccessPanel.SetActive(true);
+        
 
         yield return null;
     }
+
+    
 
 }

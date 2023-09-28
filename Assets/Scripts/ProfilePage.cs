@@ -21,10 +21,10 @@ public class ProfilePage : MonoBehaviour
 
     public void Update()
     {
-        alertFirstnameText.text = "First Name: " + Login.returnedAccount.firstname;
-        alertLastnameText.text = "Last Name: " + Login.returnedAccount.lastname;
-        alertEmailText.text = "Email: " + Login.returnedAccount.email;
-        alertUsernameText.text = "Username: " + Login.returnedAccount.username;
+        alertFirstnameText.text = "First Name: " + Login.currentAccount.firstname;
+        alertLastnameText.text = "Last Name: " + Login.currentAccount.lastname;
+        alertEmailText.text = "Email: " + Login.currentAccount.email;
+        alertUsernameText.text = "Username: " + Login.currentAccount.username;
     }
 
     public void OnEditClick()
